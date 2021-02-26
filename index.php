@@ -55,10 +55,11 @@
                 dd(json_decode($response->getBody())->error);
             }
 
-            // On récupère la dernière mesure effectuée
+            // On récupère la dernière mesure effectuée (on suppose qu'il s'agit de la première)
             $response = json_decode($response->getBody());
             $last_measure = $response->body->measuregrps[0]->measures;
 
+            // On calcule le poids
             $weight = $last_measure[0]->value * pow(10,$last_measure[0]->unit);
             
         } catch (\Throwable $th){
