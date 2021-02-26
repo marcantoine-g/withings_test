@@ -20,3 +20,4 @@ Librairies :
  - Design 
  - Test notamment pour vérifier que la valeur qu'on récupère est bien la dernière en date (on suppose que la première retournée est la plus récente)
  - Séparation en plusieurs pages (création d'un classe pourquoi pas)
+ - Gestion des erreurs
