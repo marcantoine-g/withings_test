@@ -1,6 +1,6 @@
 <?php 
     require 'vendor/autoload.php';
-    require('config.php');
+    require 'config.php';
     use GuzzleHttp\Client;
 
     $weight = null;
@@ -8,6 +8,7 @@
     // On vérifie si on a bien reçu le Authentification token 
     if(!empty($_GET['code'])){
 
+        // On setup le client (on ajoute un certificat car bug ..)
         $client = new Client([
             'timeout'  => 2.0,
             'verify' => __DIR__ . './cacert.pem'
@@ -26,12 +27,15 @@
 
                 ]
             ]);
+
+            
             if(property_exists(json_decode($response->getBody()), 'error')) {
-                header('Location: http://localhost/withings_test');
+                dd(json_decode($response->getBody())->error);
             }
+
             $access_token = json_decode($response->getBody())->body->access_token;                        
         } catch (\Throwable $th) {
-            dd('error');
+            dd($th);
         }
 
         // On récupère les données
@@ -47,6 +51,10 @@
                 ]
             ]);
 
+            if(property_exists(json_decode($response->getBody()), 'error')) {
+                dd(json_decode($response->getBody())->error);
+            }
+
             // On récupère la dernière mesure effectuée
             $response = json_decode($response->getBody());
             $last_measure = $response->body->measuregrps[0]->measures;
@@ -54,7 +62,7 @@
             $weight = $last_measure[0]->value * pow(10,$last_measure[0]->unit);
             
         } catch (\Throwable $th){
-            dd('error');
+            dd($th);
         }
     }
 
