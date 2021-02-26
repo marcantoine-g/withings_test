@@ -6,12 +6,12 @@ Installation :
 ``` composer install ```
 
 Librairies :    
- -guzzlehttp/guzzle    
- -symfony/var-dumper   
+  - guzzlehttp/guzzle    
+  - symfony/var-dumper   
 
 
 ### Description 
- - Récupération d'un athentication token
+ - Récupération d'un athentification token
  - Récupération d'un access token avec le premier
  - Récupération des données utilisateurs
  - Trie et affichage de la donnée souhaitée
